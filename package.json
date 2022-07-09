@@ -1,0 +1,25 @@
+{
+    "name": "thingtalk-syntax-highlighter",
+    "displayName": "ThingTalk Syntax Highlighter",
+    "description": "Syntax Highligh for ThingTalk: The Programming Language of Virtual Assistants",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.68.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "thingtalk",
+            "aliases": ["ThingTalk", "thingtalk"],
+            "extensions": [".tt"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "thingtalk",
+            "scopeName": "source.tt",
+            "path": "./syntaxes/thingtalk.tmLanguage.json"
+        }]
+    }
+}

@@ -1,0 +1,120 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "ThingTalk",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#constants"
+		},
+		{
+			"include": "#storage"
+		},
+		{
+			"include": "#entity"
+		},
+		{
+			"include": "#variable"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.other.genie_annotation",
+				"match": "(?<=\\[[ \t]*)\\b(canonical|property|reverse_property|prompt|question|result|on_error|string_values|min_number|max_number|default|unique|filterable|conflict_filter|require_either|minimal_projection|confirmation|formatted)\\b(?=[ \t]*\\=)",
+				"comment": "retrieved from: https://wiki.genie.stanford.edu/references/genie-annotation.md",
+				"omitted": "base|verb|passive_verb|adjective|preposition|base_projection|verb_projection|passive_verb_projection|preposition_projection|reverse_verb_projection|property_projection|reverse_property_projection|",
+				"further_included": "confirmation|formatted"
+			},
+			{
+				"name": "keyword.other.thingpedia_annotation",
+				"match": "(?<=\\[[ \t]*)\\b(name|description|thingpedia_name|thingpedia_description|license|license_gplcompatible|subcategory|system|website|repository|issue_tracker|version|doc|poll_interval|child_types|url|method)\\b(?=[ \t]*\\=)",
+				"comment": "retrieved from: https://wiki.genie.stanford.edu/references/thingpedia-annotation.md"
+			},
+			{
+				"name": "keyword.control.import.thingtalk",
+				"match": "\\bimport\\b[ \t]*\\b(loader|config)\\b[ \t]*\\bfrom\\b"
+			}]
+		},
+		"strings": {
+			"name": "string.quoted.double.thingtalk",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.thingtalk",
+					"match": "\\\\."
+				}
+			]
+		},
+		"comments": {
+			"name": "comment.line.double-slash",
+			"begin": "\/\/",
+			"end": "$"
+		},
+		"constants": {
+			"patterns": [{
+				"name": "constant.language.thingtalk",
+				"match": "\\b(true|false)\\b"
+			}]
+		},
+		"storage": {
+			"patterns": [{
+				"name": "storage.type.class",
+				"match": "\\b(class|extends)\\b"
+			},
+			{
+				"name": "storage.type.function",
+				"match": "\\b(query|action)(?![ \t]*:)\\b"
+			},
+			{
+				"name": "storage.type.entity",
+				"match": "\\b(entity)\\b"
+			},
+			{
+				"name": "storage.type.modifier",
+				"match": "\\b(list|monitorable)\\b"
+			},
+			{
+				"name": "storage.tag.parameter-constriants",
+				"match": "\\b(in[ \\t]+req|in[ \\t]+opt|out)\\b"
+			}
+			]
+		},
+		"entity": {
+			"patterns": [{
+				"name": "entity.name.function.thingtalk",
+				"begin": "(?<=(query|action)[ \t]+)[a-zA-Z_]",
+				"end": "[a-zA-Z_0-9](?=[ \t]*\\()"
+			},
+			{
+				"name": "entity.name.type.class.thingtalk",
+				"match": "(?<=(class|extends)[ \\t]+)@[A-Za-z_][a-zA-Z_0-9.-]*"
+			},
+			{
+				"name": "entity.name.type.thingtalk_entity",
+				"match": "(?<=entity[ \t]+)[a-zA-Z_][a-zA-Z_0-9]*(?=[ \t\n])"
+			},
+			{
+				"name": "entity.name.type.built_in",
+				"match": "(Boolean|String|Enum|Entity|Number|Measure|Currency|Date|Time|Location|Array|Compound)",
+				"comment": "https://wiki.genie.stanford.edu/references/thingtalk-reference"
+			}]
+		},
+		"variable": {
+			"patterns": [{
+				"name": "variable.parameter",
+				"match": "(?<=(in[ \\t]+req|in[ \\t]+opt|out)[ \\t]+)[a-zA-Z_][a-zA-Z_0-9]*(?=[ \\t]*\\:)"
+			}]
+
+		}
+	},
+	"scopeName": "source.tt"
+}

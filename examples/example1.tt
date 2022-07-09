@@ -1,0 +1,46 @@
+class @org.arxiv
+#_[name="org.arxiv"]
+#_[description="search articles on arxiv by name"]
+#_[thingpedia_name="org.arxiv"]
+#_[thingpedia_description="search articles on arxiv by name"]
+#_[canonical="arxiv"]
+#[license="BSD-3-Clause"]
+#[license_gplcompatible=true]
+#[subcategory="service"] 
+{
+    import loader from @org.thingpedia.v2();
+    import config from @org.thingpedia.config.none();
+
+    entity article #_[description="Articles on ArXiv"];
+
+    list query arxiv_search(                      
+                           in req query: Entity(org.arxiv:article)
+                           #_[prompt=["what do you want to search on arxiv", "what are you looking for on arxiv"]]
+                           #[string_values="tt:short_free_text"]
+                           #_[canonical={
+//                               default="base",
+                               base=["name", "title"],
+                               passive_verb=["matching #", "containing #", "on #"],
+                           }],
+
+                           out title: Entity(org.arxiv:article)
+                           #_[canonical={
+//                               default="base",
+                               base=["name", "title"],
+                               passive_verb=["titled"],
+                           }],
+     
+                           out author: String
+                           #_[canonical={
+//                               default="base",
+                               base=["author"],
+                               passive_verb=["written by"],
+                           }]
+                           #[filterable=false]
+                           #[string_values="tt:person_full_name"]
+       )
+    #_[canonical=["article", "research article", "arxiv article"]]
+    #_[confirmation="articles matching $query on arxiv"]
+    #_[result=["i found ${title} written by ${author} on arxiv", "here is ${title} written by ${author} on arxiv"]];
+//    #[minimal_projection=["title", "author"]];
+}
