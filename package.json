@@ -21,5 +21,10 @@
             "scopeName": "source.tt",
             "path": "./syntaxes/thingtalk.tmLanguage.json"
         }]
-    }
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/george1459/thingtalk-syntax-highlighter.git"
+    },
+    "publisher": "ShichengLiu"
 }
